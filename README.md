@@ -162,3 +162,49 @@ This template is intentionally simple. It does not use Jekyll, React, Vue, or an
 ## License
 
 You may use, modify, and adapt this template for your personal academic homepage.
+
+## Blogs、昼夜主题与 Site Footprint
+
+本次扩展保持纯静态 HTML，无需 npm/Jekyll 构建。
+
+- `assets/base.css`：从原主页提取的基础样式。
+- `assets/site.css`：参考页面的近白／深海军蓝配色、48px 网格及照片墙样式。
+- `assets/theme.js`：系统／白天／夜间切换，保存至浏览器本地。
+- `blogs/index.html`：按月份展示照片，点击放大，支持左右方向键、Esc 关闭。
+- `assets/site-config.js`：照片清单和访客地图配置。
+
+### 添加自己的照片
+
+将图片放在 `assets/blogs/`，在 `assets/site-config.js` 的 `photos` 数组中添加：
+
+```js
+{
+  month: '2026-09',
+  title: 'Hong Kong',
+  src: 'assets/blogs/hong-kong.jpg',
+  thumbnail: 'assets/blogs/hong-kong-small.jpg',
+  caption: 'An evening walk.',
+  alt: 'Victoria Harbour at sunset'
+}
+```
+
+`thumbnail` 可省略。路径相对于站点根目录，月份格式为 `YYYY-MM`，页面自动按月份倒序分组。未添加照片时显示空状态，不会将参考作者的照片冒充自己的经历。引用他人授权照片可补充 `credit` 和 `source`。
+
+### 创建自己的 MapMyVisitors 地图
+
+1. 打开 https://mapmyvisitors.com/，点击 **Create Your Free Widget**，按页面提示注册／登录。
+2. 添加你的实际 GitHub Pages 网址，选择 **Map Counter**，取得 HTML 嵌入代码。
+3. 从代码中的 `map.png?...&d=...` 或 `map.js?...&d=...` 提取 `d` 参数（到下一个 `&` 为止），填入 `visitorMapId`。不要把 `/web/` 后面的短编号填在这里。
+4. 将自己的访客统计页面地址 `https://mapmyvisitors.com/web/你的编号` 填入 `visitorMapUrl`。
+5. 保存并部署网页。主页和 Blogs 页会显示同一张地图，点击进入你的访客统计页。图片不能加载时会保留统计页面链接。
+
+示例（以下仅为占位符，需替换）：
+
+```js
+visitorMapId: '从嵌入代码复制的d参数',
+visitorMapUrl: 'https://mapmyvisitors.com/web/你的编号',
+```
+
+未配置时页面显示地图尚未连接，不会发送请求给参考作者的统计服务。访客地图通过第三方图片请求记录访问，需要联网，且可能被广告拦截器屏蔽。
+
+本地预览：在仓库目录运行 `python3 -m http.server 8000`，访问 http://localhost:8000/ 和 http://localhost:8000/blogs/ 。
