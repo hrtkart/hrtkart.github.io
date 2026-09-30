@@ -8,7 +8,7 @@
   }
   const photos = (Array.isArray(window.SITE_CONFIG?.photos) ? window.SITE_CONFIG.photos : [])
     .filter(p => p && /^\d{4}-(0[1-9]|1[0-2])$/.test(p.month) && safeURL(p.src))
-    .sort((a,b) => b.month.localeCompare(a.month));
+    .sort((a,b) => b.month.localeCompare(a.month) || Number(b.featured === true) - Number(a.featured === true));
   if (!photos.length) return;
   const dialog = document.querySelector('.lightbox');
   const image = document.querySelector('#lightbox-image');
@@ -48,6 +48,9 @@
     const grid = document.createElement('div'); grid.className = 'photo-grid';
     items.forEach(({photo,index}) => {
       const button = document.createElement('button'); button.type = 'button'; button.className = 'photo-tile';
+      if (photo.featured === true) {
+        button.classList.add('photo-tile-featured');
+      }
       button.setAttribute('aria-label', `Open image: ${photo.title || photo.alt || 'Photo ' + (index + 1)}`);
       const thumbnail = document.createElement('img'); thumbnail.src = safeURL(photo.thumbnail) || safeURL(photo.src);
       thumbnail.alt = photo.alt || photo.title || 'Journal photograph'; thumbnail.loading = 'lazy'; thumbnail.decoding = 'async';
