@@ -23,14 +23,14 @@ window.SITE_CONFIG = {
       month: '2026-09',
       title: 'Mid-Autumn Festival',
       src: 'assets/202609/DSC05863.jpg',
-      caption: '',
+      caption: 'Wong Tai Sin, Kowloon, Hong Kong',
       alt: 'Photo DSC05863'
     },
     {
       month: '2026-09',
       title: 'Mid-Autumn Festival',
       src: 'assets/202609/DSC05931.jpg',
-      caption: '',
+      caption: 'Wong Tai Sin, Kowloon, Hong Kong',
       alt: 'Photo DSC05931'
     },
     {
